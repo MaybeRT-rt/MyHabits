@@ -12,11 +12,8 @@ class HabitsViewController: UIViewController {
     private lazy var plusButton: UIBarButtonItem = {
         var button = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(actionPlusButton))
         button.tintColor = UIColor(named: "Color") ?? UIColor.white
-        
         return button
     }()
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
