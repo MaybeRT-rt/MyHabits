@@ -57,7 +57,7 @@ class InfoViewController: UIViewController {
     
     func setupView() {
         self.navigationItem.title = "Информация"
-        self.navigationController?.navigationBar.backgroundColor = .white
+        self.navigationController?.navigationBar.backgroundColor = .systemGray6
         
         view.addSubview(infoScrollView)
         infoScrollView.addSubview(infoContentView)

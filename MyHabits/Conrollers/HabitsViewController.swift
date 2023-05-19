@@ -17,11 +17,12 @@ class HabitsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white        
+        view.backgroundColor = .white
     }
     
     override func viewWillAppear(_ animated: Bool) {
            super.viewWillAppear(animated)
+           navigationController?.navigationBar.backgroundColor = .systemGray6
            navigationItem.rightBarButtonItems = [plusButton]
        }
 
@@ -30,7 +31,5 @@ class HabitsViewController: UIViewController {
         let navigationController = UINavigationController(rootViewController: habitViewController)
         present(navigationController, animated: true, completion: nil)
        }
-    
-    
 }
 
