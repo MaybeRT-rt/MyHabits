@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A4A4D982A18B6230050F10F /* HabitsProgressCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4A4D972A18B6230050F10F /* HabitsProgressCollectionViewCell.swift */; };
+		4A4A4D9A2A18B6380050F10F /* HabitsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4A4D992A18B6380050F10F /* HabitsCollectionViewCell.swift */; };
+		4A4A4D9C2A1EDEDB0050F10F /* HabitDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4A4D9B2A1EDEDB0050F10F /* HabitDetailsViewController.swift */; };
+		4A5663832A2A9D4B00D84373 /* HabitTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5663822A2A9D4B00D84373 /* HabitTableViewCell.swift */; };
+		4A9808482A38770F00DA0478 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 4A9808472A38770F00DA0478 /* Toast */; };
 		4A9B88C42A1106C800923D9A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9B88C32A1106C800923D9A /* AppDelegate.swift */; };
 		4A9B88C62A1106C800923D9A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9B88C52A1106C800923D9A /* SceneDelegate.swift */; };
 		4A9B88C82A1106C800923D9A /* HabitsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9B88C72A1106C800923D9A /* HabitsViewController.swift */; };
@@ -19,6 +24,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4A4A4D972A18B6230050F10F /* HabitsProgressCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsProgressCollectionViewCell.swift; sourceTree = "<group>"; };
+		4A4A4D992A18B6380050F10F /* HabitsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsCollectionViewCell.swift; sourceTree = "<group>"; };
+		4A4A4D9B2A1EDEDB0050F10F /* HabitDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailsViewController.swift; sourceTree = "<group>"; };
+		4A5663822A2A9D4B00D84373 /* HabitTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTableViewCell.swift; sourceTree = "<group>"; };
 		4A9B88C02A1106C800923D9A /* MyHabits.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyHabits.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A9B88C32A1106C800923D9A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4A9B88C52A1106C800923D9A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -37,12 +46,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A9808482A38770F00DA0478 /* Toast in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4A4A4D962A18B5DC0050F10F /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				4A4A4D972A18B6230050F10F /* HabitsProgressCollectionViewCell.swift */,
+				4A4A4D992A18B6380050F10F /* HabitsCollectionViewCell.swift */,
+				4A5663822A2A9D4B00D84373 /* HabitTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		4A9B88B72A1106C800923D9A = {
 			isa = PBXGroup;
 			children = (
@@ -63,7 +83,6 @@
 			isa = PBXGroup;
 			children = (
 				4A9B88F02A158CF900923D9A /* Data */,
-				4A9B88E62A13B40D00923D9A /* HabitsStore.swift */,
 				4A9B88D72A11072D00923D9A /* AppGelegate */,
 				4A9B88ED2A13C9A800923D9A /* Conrollers */,
 				4A9B88CC2A1106CA00923D9A /* Assets.xcassets */,
@@ -85,9 +104,11 @@
 		4A9B88ED2A13C9A800923D9A /* Conrollers */ = {
 			isa = PBXGroup;
 			children = (
-				4A9B88C72A1106C800923D9A /* HabitsViewController.swift */,
-				4A9B88FB2A162A2400923D9A /* HabitViewController.swift */,
 				4A9B88EE2A13CB3700923D9A /* InfoViewController.swift */,
+				4A9B88FB2A162A2400923D9A /* HabitViewController.swift */,
+				4A9B88C72A1106C800923D9A /* HabitsViewController.swift */,
+				4A4A4D9B2A1EDEDB0050F10F /* HabitDetailsViewController.swift */,
+				4A4A4D962A18B5DC0050F10F /* Cell */,
 			);
 			path = Conrollers;
 			sourceTree = "<group>";
@@ -95,6 +116,7 @@
 		4A9B88F02A158CF900923D9A /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				4A9B88E62A13B40D00923D9A /* HabitsStore.swift */,
 				4A9B88F12A158D0D00923D9A /* InfoData.swift */,
 			);
 			path = Data;
@@ -116,6 +138,9 @@
 			dependencies = (
 			);
 			name = MyHabits;
+			packageProductDependencies = (
+				4A9808472A38770F00DA0478 /* Toast */,
+			);
 			productName = MyHabits;
 			productReference = 4A9B88C02A1106C800923D9A /* MyHabits.app */;
 			productType = "com.apple.product-type.application";
@@ -144,6 +169,9 @@
 				Base,
 			);
 			mainGroup = 4A9B88B72A1106C800923D9A;
+			packageReferences = (
+				4A9808462A38770F00DA0478 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+			);
 			productRefGroup = 4A9B88C12A1106C800923D9A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -170,12 +198,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A4A4D982A18B6230050F10F /* HabitsProgressCollectionViewCell.swift in Sources */,
 				4A9B88E72A13B40D00923D9A /* HabitsStore.swift in Sources */,
 				4A9B88C82A1106C800923D9A /* HabitsViewController.swift in Sources */,
+				4A4A4D9A2A18B6380050F10F /* HabitsCollectionViewCell.swift in Sources */,
+				4A5663832A2A9D4B00D84373 /* HabitTableViewCell.swift in Sources */,
 				4A9B88FC2A162A2400923D9A /* HabitViewController.swift in Sources */,
 				4A9B88EF2A13CB3700923D9A /* InfoViewController.swift in Sources */,
 				4A9B88F22A158D0D00923D9A /* InfoData.swift in Sources */,
 				4A9B88C42A1106C800923D9A /* AppDelegate.swift in Sources */,
+				4A4A4D9C2A1EDEDB0050F10F /* HabitDetailsViewController.swift in Sources */,
 				4A9B88C62A1106C800923D9A /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -390,6 +422,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4A9808462A38770F00DA0478 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4A9808472A38770F00DA0478 /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4A9808462A38770F00DA0478 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4A9B88B82A1106C800923D9A /* Project object */;
 }

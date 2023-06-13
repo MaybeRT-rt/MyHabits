@@ -152,6 +152,15 @@ public final class HabitsStore {
         habit.trackDates.append(.init())
         save()
     }
+
+    //доп
+    func untrack(_ habit: Habit) {
+        let today = Date().startOfDay() // Получаем начало текущего дня
+        // Удаляем все даты отслеживания привычки, соответствующие сегодняшнему дню
+        habit.trackDates.removeAll(where: { $0.startOfDay() == today })
+        // Сохраняем изменения
+        save()
+    }
     
     /// Возвращает отформатированное время для даты.
     /// - Parameter index: Индекс в массиве dates.
@@ -207,4 +216,12 @@ private extension Date {
         }
         return dates
     }
+    
+    //доп
+    func startOfDay() -> Date {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.year, .month, .day], from: self) // для извлечения компонентов года, месяца и дня из текущей даты
+        return calendar.date(from: components)!
+    }
+    
 }

@@ -7,7 +7,18 @@
 
 import UIKit
 
-class HabitViewController: UIViewController {
+class HabitViewController: UIViewController, UICollectionViewDelegate {
+    
+    
+    weak var delegate: HabitsCollectionViewCellDelegate?
+    weak var delegates: HabitsCollectionViewCellDelegate?
+    
+    var habit: Habit?
+    
+    var habitName: String?
+    var habitColor: UIColor?
+    var habitDate: Date?
+    var isEditingHabit: Bool = true
     
     private var labelName: UILabel = {
         let label = UILabel()
@@ -42,7 +53,7 @@ class HabitViewController: UIViewController {
         button.layer.cornerRadius = 15
         button.layer.masksToBounds = true
         button.layer.backgroundColor = UIColor(red: 1, green: 0.624, blue: 0.31, alpha: 1).cgColor
-        button.addTarget(self, action: #selector(tappedColorButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(tappedColorButton(_:)), for: .touchUpInside)
         
         return button
     }()
@@ -58,7 +69,7 @@ class HabitViewController: UIViewController {
     
     private let everyDay: UILabel = {
         let everyDay = UILabel()
-        everyDay.text =   "Каждый день в "
+        everyDay.text = "Каждый день в "
         everyDay.translatesAutoresizingMaskIntoConstraints = false
         everyDay.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         
@@ -86,8 +97,7 @@ class HabitViewController: UIViewController {
         let data = formatData.date(from: "11:00")
         dataTimes.date = data!
         
-        dataTimes.addTarget(self, action: #selector(checkDatePicker(sender:)), for: .valueChanged)
-        
+        dataTimes.addTarget(self, action: #selector(checkDatePicker(_:)), for: .valueChanged)
         
         return dataTimes
     }()
@@ -97,6 +107,7 @@ class HabitViewController: UIViewController {
         view.backgroundColor = .white
         setupView()
         setupConstraint()
+        configure()
     }
     
     func setupView() {
@@ -152,22 +163,53 @@ class HabitViewController: UIViewController {
         
     }
     
-    @objc func save() {
-        
+    func configure() {
+        habitTextField.text = habitName
+        buttonColor.backgroundColor = habitColor
+        timeDatePicker.date = habitDate ?? Date()
     }
+   
+    @objc func save() {
+        guard let name = habitTextField.text, !name.isEmpty else {
+               habitTextField.text = "Привычка"
+               return
+           }
+           
+           let selectedColor = buttonColor.backgroundColor ?? .black
+           
+           if let habit = habit {
+               habit.name = name
+               habit.color = selectedColor
+               habit.date = timeDatePicker.date
+           } else {
+               let newHabit = Habit(name: name, date: timeDatePicker.date, color: selectedColor)
+               HabitsStore.shared.habits.append(newHabit)
+           }
+           
+           HabitsStore.shared.save()
+           
+           if let habitsViewController = navigationController?.viewControllers.first(where: { $0 is HabitsViewController }) as? HabitsViewController {
+               habitsViewController.habitCollection.reloadData()
+           }
+           
+           delegate?.habitCellDidSaveNewHabit()
+           navigationController?.popViewController(animated: true)
+           dismiss(animated: true, completion: nil)
+       }
+
     
     @objc func cancel() {
         dismiss(animated: true, completion: nil)
     }
     
-    @objc func tappedColorButton() {
+    @objc func tappedColorButton(_ sender: UIButton) {
         let pickerColor = UIColorPickerViewController()
         self.present(pickerColor, animated: true, completion: nil)
         pickerColor.selectedColor = buttonColor.backgroundColor!
         pickerColor.delegate = self
     }
     
-    @objc func checkDatePicker(sender: UIDatePicker) {
+    @objc func checkDatePicker(_ sender: UIDatePicker) {
         let selectedTime = sender.date
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
@@ -186,5 +228,3 @@ extension HabitViewController: UIColorPickerViewControllerDelegate {
         buttonColor.backgroundColor = selectedColor
     }
 }
-
-
