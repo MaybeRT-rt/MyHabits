@@ -103,14 +103,13 @@ class HabitViewController: UIViewController, UICollectionViewDelegate {
     }()
     
     private let removeButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Удалить привычку", for: .normal)
-        button.setTitleColor(.systemRed, for: .normal)
-        button.backgroundColor = .systemBackground
-        button.addTarget(self, action: #selector(tappedRemoveButton), for: .touchUpInside)
+        let remove = UIButton()
+        remove.translatesAutoresizingMaskIntoConstraints = false
+        remove.setTitle("Удалить привычку", for: .normal)
+        remove.setTitleColor(.systemRed, for: .normal)
+        remove.addTarget(self, action: #selector(tappRemoveButton), for: .touchUpInside)
         
-        return button
+        return remove
     }()
     
     override func viewDidLoad() {
@@ -181,7 +180,6 @@ class HabitViewController: UIViewController, UICollectionViewDelegate {
     
     func configure() {
         habitTextField.text = habitName
-        buttonColor.backgroundColor = habitColor
         timeDatePicker.date = habitDate ?? Date()
         
         removeButton.isHidden = !isEditingHabit || habit == nil
@@ -223,7 +221,7 @@ class HabitViewController: UIViewController, UICollectionViewDelegate {
     @objc func tappedColorButton(_ sender: UIButton) {
         let pickerColor = UIColorPickerViewController()
         self.present(pickerColor, animated: true, completion: nil)
-        pickerColor.selectedColor = buttonColor.backgroundColor!
+        pickerColor.selectedColor = buttonColor.backgroundColor ?? .black
         pickerColor.delegate = self
     }
     
@@ -238,7 +236,7 @@ class HabitViewController: UIViewController, UICollectionViewDelegate {
         }
     }
     
-    @objc func tappedRemoveButton() {
+    @objc func tappRemoveButton() {
         
     }
 }
