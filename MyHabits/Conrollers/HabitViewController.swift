@@ -102,6 +102,17 @@ class HabitViewController: UIViewController, UICollectionViewDelegate {
         return dataTimes
     }()
     
+    private let removeButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Удалить привычку", for: .normal)
+        button.setTitleColor(.systemRed, for: .normal)
+        button.backgroundColor = .systemBackground
+        button.addTarget(self, action: #selector(tappedRemoveButton), for: .touchUpInside)
+        
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -125,6 +136,7 @@ class HabitViewController: UIViewController, UICollectionViewDelegate {
         view.addSubview(everyDay)
         view.addSubview(dateTimeLabel)
         view.addSubview(timeDatePicker)
+        view.addSubview(removeButton)
         
     }
     
@@ -158,7 +170,11 @@ class HabitViewController: UIViewController, UICollectionViewDelegate {
             
             timeDatePicker.topAnchor.constraint(equalTo: everyDay.bottomAnchor, constant: 10),
             timeDatePicker.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            timeDatePicker.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+            timeDatePicker.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            
+            removeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            removeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            removeButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
         ])
         
     }
@@ -167,36 +183,38 @@ class HabitViewController: UIViewController, UICollectionViewDelegate {
         habitTextField.text = habitName
         buttonColor.backgroundColor = habitColor
         timeDatePicker.date = habitDate ?? Date()
+        
+        removeButton.isHidden = !isEditingHabit || habit == nil
     }
-   
+    
     @objc func save() {
         guard let name = habitTextField.text, !name.isEmpty else {
-               habitTextField.text = "Привычка"
-               return
-           }
-           
-           let selectedColor = buttonColor.backgroundColor ?? .black
-           
-           if let habit = habit {
-               habit.name = name
-               habit.color = selectedColor
-               habit.date = timeDatePicker.date
-           } else {
-               let newHabit = Habit(name: name, date: timeDatePicker.date, color: selectedColor)
-               HabitsStore.shared.habits.append(newHabit)
-           }
-           
-           HabitsStore.shared.save()
-           
-           if let habitsViewController = navigationController?.viewControllers.first(where: { $0 is HabitsViewController }) as? HabitsViewController {
-               habitsViewController.habitCollection.reloadData()
-           }
-           
-           delegate?.habitCellDidSaveNewHabit()
-           navigationController?.popViewController(animated: true)
-           dismiss(animated: true, completion: nil)
-       }
-
+            habitTextField.text = "Привычка"
+            return
+        }
+        
+        let selectedColor = buttonColor.backgroundColor ?? .black
+        
+        if let habit = habit {
+            habit.name = name
+            habit.color = selectedColor
+            habit.date = timeDatePicker.date
+        } else {
+            let newHabit = Habit(name: name, date: timeDatePicker.date, color: selectedColor)
+            HabitsStore.shared.habits.append(newHabit)
+        }
+        
+        HabitsStore.shared.save()
+        
+        if let habitsViewController = navigationController?.viewControllers.first(where: { $0 is HabitsViewController }) as? HabitsViewController {
+            habitsViewController.habitCollection.reloadData()
+        }
+        
+        delegate?.habitCellDidSaveNewHabit()
+        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
+    }
+    
     
     @objc func cancel() {
         dismiss(animated: true, completion: nil)
@@ -218,6 +236,10 @@ class HabitViewController: UIViewController, UICollectionViewDelegate {
         DispatchQueue.main.async { [weak self] in // для обновления текста в главной очереди, а не в фоновом потоке
             self?.dateTimeLabel.text = selectedTimeString
         }
+    }
+    
+    @objc func tappedRemoveButton() {
+        
     }
 }
 

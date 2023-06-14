@@ -75,8 +75,8 @@ class HabitDetailsViewController: UIViewController, HabitsCollectionViewCellDele
         if habit != nil {
             habitVC.habit = habit
             habitVC.isEditingHabit = true
+            dismiss(animated: true, completion: nil)
         }
-        
         navigationController?.present(habitNavigationViewController, animated: true, completion: nil)
     }
     
@@ -96,7 +96,6 @@ class HabitDetailsViewController: UIViewController, HabitsCollectionViewCellDele
         tableDate.delegate = self
         
         tableDate.reloadData()
-        
     }
 }
 
