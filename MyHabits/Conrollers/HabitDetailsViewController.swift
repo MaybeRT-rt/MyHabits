@@ -67,6 +67,7 @@ class HabitDetailsViewController: UIViewController, HabitsCollectionViewCellDele
     @objc func editedHabits() {
         let habitVC = HabitViewController()
         habitVC.delegate = self
+        habitVC.actionsdeletage = self
         let habitNavigationViewController = UINavigationController(rootViewController: habitVC)
         
         habitVC.habitName = habit?.name
@@ -94,7 +95,6 @@ class HabitDetailsViewController: UIViewController, HabitsCollectionViewCellDele
 
         tableDate.dataSource = self
         tableDate.delegate = self
-        
         tableDate.reloadData()
     }
 }

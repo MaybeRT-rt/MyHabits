@@ -51,6 +51,7 @@ class HabitsViewController: UIViewController {
         navigationController?.navigationBar.backgroundColor = .systemGray6
         navigationItem.title = "Cегодня"
         navigationItem.rightBarButtonItems = [plusButton]
+        habitCollection.reloadData()
     }
     
     private func addedSubviews() {
@@ -122,28 +123,41 @@ extension HabitsViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if indexPath.section == 0 {
-            var cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellReuseID.progress.rawValue, for: indexPath) as! HabitsProgressCollectionViewCell
+         if indexPath.section == 0 {
+             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellReuseID.progress.rawValue, for: indexPath) as! HabitsProgressCollectionViewCell
             cell.progressLabel.text = "\(Int(HabitsStore.shared.todayProgress * 100))%"
-            cell.progressView.setProgress(HabitsStore.shared.todayProgress, animated: true)
+             cell.progressView.setProgress(HabitsStore.shared.todayProgress, animated: true)
             cell.layer.cornerRadius = 5
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellReuseID.habits.rawValue, for: indexPath) as! HabitsCollectionViewCell
-            let habit = HabitsStore.shared.habits[indexPath.row]
-            cell.update(with: habit)
+            
+            if indexPath.row < HabitsStore.shared.habits.count {
+                let habit = HabitsStore.shared.habits[indexPath.row]
+                cell.update(with: habit)
+            }
+            
             cell.delegate = self
             return cell
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView.dequeueReusableCell(withReuseIdentifier: CellReuseID.habits.rawValue, for: indexPath) is HabitsCollectionViewCell {
-            let habit = HabitsStore.shared.habits[indexPath.row]
-            let habitDetailsVC = HabitDetailsViewController()
-            habitDetailsVC.habit = habit
-            guard self.navigationController != nil else { return }
-            self.navigationController?.pushViewController(habitDetailsVC, animated: true)
+        guard indexPath.section == 1 else {
+            return
+        }
+        
+        let habitIndex = indexPath.row
+        
+        guard habitIndex < HabitsStore.shared.habits.count else {
+            return
+        }
+        let habit = HabitsStore.shared.habits[habitIndex]
+        let habitDetailsVC = HabitDetailsViewController()
+        habitDetailsVC.habit = habit
+        
+        if let navigationController = self.navigationController {
+            navigationController.pushViewController(habitDetailsVC, animated: true)
         }
     }
 }

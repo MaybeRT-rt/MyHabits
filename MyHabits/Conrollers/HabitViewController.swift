@@ -11,7 +11,7 @@ class HabitViewController: UIViewController, UICollectionViewDelegate {
     
     
     weak var delegate: HabitsCollectionViewCellDelegate?
-    weak var delegates: HabitsCollectionViewCellDelegate?
+    weak var actionsdeletage: HabitDetailsViewController?
     
     var habit: Habit?
     
@@ -107,7 +107,7 @@ class HabitViewController: UIViewController, UICollectionViewDelegate {
         remove.translatesAutoresizingMaskIntoConstraints = false
         remove.setTitle("Удалить привычку", for: .normal)
         remove.setTitleColor(.systemRed, for: .normal)
-        remove.addTarget(self, action: #selector(tappRemoveButton), for: .touchUpInside)
+        remove.addTarget(self, action: #selector(tapRemoveButton), for: .touchUpInside)
         
         return remove
     }()
@@ -120,8 +120,13 @@ class HabitViewController: UIViewController, UICollectionViewDelegate {
         configure()
     }
     
+    
     func setupView() {
-        self.navigationItem.title = "Coздать"
+        if habit == nil {
+            self.navigationItem.title = "Coздать"
+        } else {
+            self.navigationItem.title = "Править"
+        }
         self.navigationController?.navigationBar.backgroundColor = .systemGray6
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Сохранить", style: .done, target: self, action: #selector(save))
@@ -236,11 +241,42 @@ class HabitViewController: UIViewController, UICollectionViewDelegate {
         }
     }
     
-    @objc func tappRemoveButton() {
+    @objc func tapRemoveButton() {
+        guard let habit = habit else {
+            return
+        }
         
+        let alertController = UIAlertController(
+            title: "Удалить привычку",
+            message: "Вы хотите удалить привычку \"\(habit.name)\"?",
+            preferredStyle: .alert
+        )
+        
+        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel)
+        alertController.addAction(cancelAction)
+        
+        let deleteAction = UIAlertAction(title: "Удалить", style: .destructive) { [weak self] _ in
+            if let index = HabitsStore.shared.habits.firstIndex(where: { $0 === habit }) {
+                HabitsStore.shared.habits.remove(at: index)
+            }
+            
+            if let habitsViewController = self?.navigationController?.viewControllers
+                .first(where: { $0 is HabitsViewController }) as? HabitsViewController {
+                habitsViewController.habitCollection.reloadData()
+                self?.navigationController?.popToViewController(habitsViewController, animated: true)
+            } else if let habitDetailsViewController = self?.navigationController?.viewControllers
+                .first(where: { $0 is HabitDetailsViewController }) as? HabitDetailsViewController {
+            } else {
+                self?.dismiss(animated: false) {
+                    self?.actionsdeletage?.navigationController?.popToRootViewController(animated: false)
+                }
+            }
+        }
+        alertController.addAction(deleteAction)
+        
+        present(alertController, animated: true)
     }
 }
-
 extension HabitViewController: UIColorPickerViewControllerDelegate {
     
     func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
