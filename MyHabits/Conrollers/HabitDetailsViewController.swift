@@ -8,7 +8,7 @@
 import UIKit
 import Toast
 
-class HabitDetailsViewController: UIViewController, HabitsCollectionViewCellDelegate {
+final class HabitDetailsViewController: UIViewController, HabitsCollectionViewCellDelegate {
     
     func habitCellDidSaveNewHabit() {
         self.view.makeToast("Habit saved or updated successfully!")
@@ -67,7 +67,7 @@ class HabitDetailsViewController: UIViewController, HabitsCollectionViewCellDele
     @objc func editedHabits() {
         let habitVC = HabitViewController()
         habitVC.delegate = self
-        habitVC.actionsdeletage = self
+        habitVC.actionsDeletage = self
         let habitNavigationViewController = UINavigationController(rootViewController: habitVC)
         
         habitVC.habitName = habit?.name

@@ -88,6 +88,8 @@ extension Habit: Equatable {
 
 /// Класс для сохранения и изменения привычек пользователя.
 public final class HabitsStore {
+    //
+    weak var delegate: HabitsStoreDelegate?
     
     /// Синглтон для изменения состояния привычек из разных модулей.
     public static let shared: HabitsStore = .init()
@@ -113,6 +115,7 @@ public final class HabitsStore {
             return 0
         }
         let takenTodayHabits = habits.filter { $0.isAlreadyTakenToday }
+        delegate?.habitsStoreDidChangeTodayProgress()
         return Float(takenTodayHabits.count) / Float(habits.count)
     }
     

@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol HabitsCollectionViewCellDelegate: AnyObject {
-    func habitCellDidSaveNewHabit()
-}
-
 class HabitsCollectionViewCell: UICollectionViewCell {
     
     weak var delegate: HabitsCollectionViewCellDelegate?
@@ -106,7 +102,7 @@ class HabitsCollectionViewCell: UICollectionViewCell {
             circleView.image = UIImage(systemName: "checkmark")
             circleView.tintColor = .white
         } else {
-            circleView.backgroundColor = UIColor.gray
+            circleView.backgroundColor = habit.color
             circleView.image = nil
         }
     }

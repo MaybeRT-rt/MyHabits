@@ -8,7 +8,7 @@
 import UIKit
 
 class HabitsViewController: UIViewController {
-    
+   
     private lazy var layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -125,8 +125,7 @@ extension HabitsViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
          if indexPath.section == 0 {
              let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellReuseID.progress.rawValue, for: indexPath) as! HabitsProgressCollectionViewCell
-            cell.progressLabel.text = "\(Int(HabitsStore.shared.todayProgress * 100))%"
-             cell.progressView.setProgress(HabitsStore.shared.todayProgress, animated: true)
+             habitsStoreDidChangeTodayProgress()
             cell.layer.cornerRadius = 5
             return cell
         } else {
@@ -185,5 +184,20 @@ extension HabitsViewController: HabitsCollectionViewCellDelegate {
     
     func habitCellDidSaveNewHabit() {
         habitCollection.reloadData()
+    }
+}
+
+extension HabitsViewController: HabitsStoreDelegate {
+    
+    func habitsStoreDidChangeTodayProgress() {
+        HabitsStore.shared.delegate = self
+        DispatchQueue.main.async {
+            let progressIndexPath = IndexPath(item: 0, section: 0)
+            if let progressCell = self.habitCollection.cellForItem(at: progressIndexPath) as? HabitsProgressCollectionViewCell {
+                let newProgress = HabitsStore.shared.todayProgress
+                progressCell.progressLabel.text = "\(Int(newProgress * 100))%"
+                progressCell.progressView.setProgress(newProgress, animated: true)
+            }
+        }
     }
 }

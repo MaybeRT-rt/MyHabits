@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A22B30A2A4C81A900859F68 /* HabitsStoreDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A22B3092A4C81A900859F68 /* HabitsStoreDelegate.swift */; };
+		4A22B30C2A4C823700859F68 /* HabitsCollectionViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A22B30B2A4C823700859F68 /* HabitsCollectionViewCellDelegate.swift */; };
 		4A4A4D982A18B6230050F10F /* HabitsProgressCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4A4D972A18B6230050F10F /* HabitsProgressCollectionViewCell.swift */; };
 		4A4A4D9A2A18B6380050F10F /* HabitsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4A4D992A18B6380050F10F /* HabitsCollectionViewCell.swift */; };
 		4A4A4D9C2A1EDEDB0050F10F /* HabitDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4A4D9B2A1EDEDB0050F10F /* HabitDetailsViewController.swift */; };
@@ -24,6 +26,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4A22B3092A4C81A900859F68 /* HabitsStoreDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsStoreDelegate.swift; sourceTree = "<group>"; };
+		4A22B30B2A4C823700859F68 /* HabitsCollectionViewCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsCollectionViewCellDelegate.swift; sourceTree = "<group>"; };
 		4A4A4D972A18B6230050F10F /* HabitsProgressCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsProgressCollectionViewCell.swift; sourceTree = "<group>"; };
 		4A4A4D992A18B6380050F10F /* HabitsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsCollectionViewCell.swift; sourceTree = "<group>"; };
 		4A4A4D9B2A1EDEDB0050F10F /* HabitDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailsViewController.swift; sourceTree = "<group>"; };
@@ -53,6 +57,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4A22B3082A4C815400859F68 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				4A22B3092A4C81A900859F68 /* HabitsStoreDelegate.swift */,
+				4A22B30B2A4C823700859F68 /* HabitsCollectionViewCellDelegate.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		4A4A4D962A18B5DC0050F10F /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -82,9 +95,10 @@
 		4A9B88C22A1106C800923D9A /* MyHabits */ = {
 			isa = PBXGroup;
 			children = (
-				4A9B88F02A158CF900923D9A /* Data */,
 				4A9B88D72A11072D00923D9A /* AppGelegate */,
 				4A9B88ED2A13C9A800923D9A /* Conrollers */,
+				4A22B3082A4C815400859F68 /* Protocols */,
+				4A9B88F02A158CF900923D9A /* Data */,
 				4A9B88CC2A1106CA00923D9A /* Assets.xcassets */,
 				4A9B88CE2A1106CA00923D9A /* LaunchScreen.storyboard */,
 				4A9B88D12A1106CA00923D9A /* Info.plist */,
@@ -206,9 +220,11 @@
 				4A9B88FC2A162A2400923D9A /* HabitViewController.swift in Sources */,
 				4A9B88EF2A13CB3700923D9A /* InfoViewController.swift in Sources */,
 				4A9B88F22A158D0D00923D9A /* InfoData.swift in Sources */,
+				4A22B30C2A4C823700859F68 /* HabitsCollectionViewCellDelegate.swift in Sources */,
 				4A9B88C42A1106C800923D9A /* AppDelegate.swift in Sources */,
 				4A4A4D9C2A1EDEDB0050F10F /* HabitDetailsViewController.swift in Sources */,
 				4A9B88C62A1106C800923D9A /* SceneDelegate.swift in Sources */,
+				4A22B30A2A4C81A900859F68 /* HabitsStoreDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

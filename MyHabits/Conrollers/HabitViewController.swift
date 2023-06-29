@@ -9,9 +9,8 @@ import UIKit
 
 class HabitViewController: UIViewController, UICollectionViewDelegate {
     
-    
     weak var delegate: HabitsCollectionViewCellDelegate?
-    weak var actionsdeletage: HabitDetailsViewController?
+    weak var actionsDeletage: HabitDetailsViewController?
     
     var habit: Habit?
     
@@ -185,14 +184,35 @@ class HabitViewController: UIViewController, UICollectionViewDelegate {
     
     func configure() {
         habitTextField.text = habitName
+        buttonColor.backgroundColor = habit?.color ?? UIColor(red: 1, green: 0.624, blue: 0.31, alpha: 1)
         timeDatePicker.date = habitDate ?? Date()
+        checkDatePicker(timeDatePicker)
         
         removeButton.isHidden = !isEditingHabit || habit == nil
     }
     
     @objc func save() {
         guard let name = habitTextField.text, !name.isEmpty else {
-            habitTextField.text = "Привычка"
+            let alert = UIAlertController(title: "Пустое поле привычки", message: "Введите название своей новой привычки", preferredStyle: .alert)
+            
+            alert.addTextField { textField in
+                textField.placeholder = "Название привычки"
+            }
+            
+            let addAction = UIAlertAction(title: "Добавить", style: .default) { [weak self, weak alert] _ in
+                guard let textField = alert?.textFields?.first,
+                      let text = textField.text,
+                      !text.isEmpty else {
+                    return
+                }
+                
+                self?.habitTextField.text = text
+                self?.save()
+            }
+            
+            alert.addAction(addAction)
+            present(alert, animated: true, completion: nil)
+            
             return
         }
         
@@ -214,10 +234,10 @@ class HabitViewController: UIViewController, UICollectionViewDelegate {
         }
         
         delegate?.habitCellDidSaveNewHabit()
+        
         navigationController?.popViewController(animated: true)
         dismiss(animated: true, completion: nil)
     }
-    
     
     @objc func cancel() {
         dismiss(animated: true, completion: nil)
@@ -268,7 +288,7 @@ class HabitViewController: UIViewController, UICollectionViewDelegate {
                 .first(where: { $0 is HabitDetailsViewController }) as? HabitDetailsViewController {
             } else {
                 self?.dismiss(animated: false) {
-                    self?.actionsdeletage?.navigationController?.popToRootViewController(animated: false)
+                    self?.actionsDeletage?.navigationController?.popToRootViewController(animated: false)
                 }
             }
         }

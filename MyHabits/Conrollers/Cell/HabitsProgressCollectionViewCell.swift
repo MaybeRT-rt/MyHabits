@@ -66,3 +66,4 @@ class HabitsProgressCollectionViewCell: UICollectionViewCell {
         ])
     }
 }
+
