@@ -14,6 +14,16 @@ class HabitViewController: UIViewController, UICollectionViewDelegate {
     
     var habit: Habit?
     
+    var habitNumber: Int {
+        get {
+            let number = UserDefaults.standard.integer(forKey: "habitNumber")
+            return max(1, number)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "habitNumber")
+        }
+    }
+    
     var habitName: String?
     var habitColor: UIColor?
     var habitDate: Date?
@@ -198,15 +208,22 @@ class HabitViewController: UIViewController, UICollectionViewDelegate {
             alert.addTextField { textField in
                 textField.placeholder = "Название привычки"
             }
+            let cancelAction = UIAlertAction(title: "Отмена", style: .cancel)
+            alert.addAction(cancelAction)
             
             let addAction = UIAlertAction(title: "Добавить", style: .default) { [weak self, weak alert] _ in
                 guard let textField = alert?.textFields?.first,
-                      let text = textField.text,
-                      !text.isEmpty else {
+                      let text = textField.text else {
                     return
                 }
                 
-                self?.habitTextField.text = text
+                if text.isEmpty {
+                    self?.habitTextField.text = "Привычка №\(self?.habitNumber ?? 0)"
+                    self?.habitNumber += 1
+                } else {
+                    self?.habitTextField.text = text
+                }
+                
                 self?.save()
             }
             
