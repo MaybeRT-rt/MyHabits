@@ -208,9 +208,7 @@ class HabitViewController: UIViewController, UICollectionViewDelegate {
             alert.addTextField { textField in
                 textField.placeholder = "Название привычки"
             }
-            let cancelAction = UIAlertAction(title: "Отмена", style: .cancel)
-            alert.addAction(cancelAction)
-            
+           
             let addAction = UIAlertAction(title: "Добавить", style: .default) { [weak self, weak alert] _ in
                 guard let textField = alert?.textFields?.first,
                       let text = textField.text else {
