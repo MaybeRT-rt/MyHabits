@@ -8,6 +8,7 @@
 import UIKit
 
 class HabitsViewController: UIViewController {
+    
    
     private lazy var layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
@@ -40,7 +41,7 @@ class HabitsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-       
+        
         addedSubviews()
         setupConstraints()
         setupCollectionView()
@@ -48,8 +49,8 @@ class HabitsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.backgroundColor = .systemGray6
         navigationItem.title = "Cегодня"
+        navigationController?.navigationBar.backgroundColor = .systemGray6
         navigationItem.rightBarButtonItems = [plusButton]
         habitCollection.reloadData()
     }

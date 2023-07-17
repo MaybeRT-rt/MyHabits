@@ -10,6 +10,7 @@ import Toast
 
 final class HabitDetailsViewController: UIViewController, HabitsCollectionViewCellDelegate {
     
+    
     func habitCellDidSaveNewHabit() {
         self.view.makeToast("Habit saved or updated successfully!")
 
@@ -51,7 +52,6 @@ final class HabitDetailsViewController: UIViewController, HabitsCollectionViewCe
         addedSubview()
         setupContrain()
         tuneTableView()
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
