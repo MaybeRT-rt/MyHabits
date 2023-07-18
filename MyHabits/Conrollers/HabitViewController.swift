@@ -7,10 +7,15 @@
 
 import UIKit
 
+protocol HabitViewControllerDelegate: AnyObject {
+    func habitViewControllerDidUpdateName(_ viewController: HabitViewController, withName name: String?)
+}
+
 class HabitViewController: UIViewController, UICollectionViewDelegate {
     
     weak var delegate: HabitsCollectionViewCellDelegate?
     weak var actionsDeletage: HabitDetailsViewController?
+    weak var delegateName: HabitViewControllerDelegate?
     
     var habit: Habit?
     
@@ -240,6 +245,7 @@ class HabitViewController: UIViewController, UICollectionViewDelegate {
             habit.name = name
             habit.color = selectedColor
             habit.date = timeDatePicker.date
+            delegateName?.habitViewControllerDidUpdateName(self, withName: name)
         } else {
             let newHabit = Habit(name: name, date: timeDatePicker.date, color: selectedColor)
             HabitsStore.shared.habits.append(newHabit)

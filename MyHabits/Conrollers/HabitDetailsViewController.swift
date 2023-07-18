@@ -10,7 +10,6 @@ import Toast
 
 final class HabitDetailsViewController: UIViewController, HabitsCollectionViewCellDelegate {
     
-    
     func habitCellDidSaveNewHabit() {
         self.view.makeToast("Habit saved or updated successfully!")
         
@@ -60,6 +59,7 @@ final class HabitDetailsViewController: UIViewController, HabitsCollectionViewCe
         navigationItem.title = habit?.name
         navigationController?.navigationBar.prefersLargeTitles = false
     }
+
     
     private func addedSubview() {
         view.addSubview(tableDate)
@@ -69,16 +69,22 @@ final class HabitDetailsViewController: UIViewController, HabitsCollectionViewCe
         let habitVC = HabitViewController()
         habitVC.delegate = self
         habitVC.actionsDeletage = self
+        habitVC.delegateName = self
+        
         let habitNavigationViewController = UINavigationController(rootViewController: habitVC)
         
         habitVC.habitName = habit?.name
         habitVC.habitColor = habit?.color
         habitVC.habitDate = habit?.date
+        
         if habit != nil {
             habitVC.habit = habit
+            habitVC.habitName = habit?.name
+            habitVC.delegate = self
             habitVC.isEditingHabit = true
             dismiss(animated: true, completion: nil)
         }
+        
         navigationController?.present(habitNavigationViewController, animated: true, completion: nil)
     }
     
@@ -122,3 +128,10 @@ extension HabitDetailsViewController: UITableViewDataSource, UITableViewDelegate
         return cell
     }
 }
+
+extension HabitDetailsViewController: HabitViewControllerDelegate {
+    func habitViewControllerDidUpdateName(_ viewController: HabitViewController, withName name: String?) {
+        navigationItem.title = name
+    }
+}
+
