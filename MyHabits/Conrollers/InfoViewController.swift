@@ -8,6 +8,8 @@
 import UIKit
 
 final class InfoViewController: UIViewController {
+    
+    var shouldUseLargeTitles = true
         
     private lazy var infoScrollView: UIScrollView = {
         let scrollInfo = UIScrollView()
@@ -53,6 +55,20 @@ final class InfoViewController: UIViewController {
         view.backgroundColor = .white
         setupView()
         setupConstraint()
+        
+        updateLargeTitles()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        updateLargeTitles()
+    }
+    
+    private func updateLargeTitles() {
+        if let navigationBar = navigationController?.navigationBar {
+            navigationBar.prefersLargeTitles = shouldUseLargeTitles
+        }
     }
     
     func setupView() {
