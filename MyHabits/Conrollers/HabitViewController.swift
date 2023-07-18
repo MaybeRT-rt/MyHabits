@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol HabitViewControllerDelegate: AnyObject {
-    func habitViewControllerDidUpdateName(_ viewController: HabitViewController, withName name: String?)
-}
-
 class HabitViewController: UIViewController, UICollectionViewDelegate {
     
     weak var delegate: HabitsCollectionViewCellDelegate?
