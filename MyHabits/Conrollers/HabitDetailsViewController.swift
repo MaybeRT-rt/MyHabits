@@ -13,14 +13,13 @@ final class HabitDetailsViewController: UIViewController, HabitsCollectionViewCe
     
     func habitCellDidSaveNewHabit() {
         self.view.makeToast("Habit saved or updated successfully!")
-
+        
         if let habitsViewController = navigationController?.viewControllers.first(where: { $0 is HabitsViewController }) as? HabitsViewController {
             habitsViewController.habitCollection.reloadData()
         }
         tableDate.reloadData()
     }
     
-
     var habit: Habit?
     private var habitDates: [Date] {
         habit?.trackDates ?? []
@@ -44,7 +43,7 @@ final class HabitDetailsViewController: UIViewController, HabitsCollectionViewCe
     private enum CellReuseID: String {
         case datas = "DataTableViewCell_ReuseID"
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -54,10 +53,12 @@ final class HabitDetailsViewController: UIViewController, HabitsCollectionViewCe
         tuneTableView()
     }
     
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.rightBarButtonItem = editButton
         navigationItem.title = habit?.name
+        navigationController?.navigationBar.prefersLargeTitles = false
     }
     
     private func addedSubview() {

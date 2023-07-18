@@ -9,7 +9,8 @@ import UIKit
 
 class HabitsViewController: UIViewController {
     
-   
+    var shouldUseLargeTitles = true
+    
     private lazy var layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -47,12 +48,28 @@ class HabitsViewController: UIViewController {
         setupCollectionView()
     }
     
+    private func updateLargeTitles() {
+        if let navigationBar = navigationController?.navigationBar {
+            navigationBar.prefersLargeTitles = shouldUseLargeTitles
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.title = "Cегодня"
         navigationController?.navigationBar.backgroundColor = .systemGray6
         navigationItem.rightBarButtonItems = [plusButton]
         habitCollection.reloadData()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationItem.title = ""
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        updateLargeTitles()
     }
     
     private func addedSubviews() {
